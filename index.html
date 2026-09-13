@@ -6,7 +6,7 @@
   <title>Study Portal - Dynamic Atmospheric Theme</title>
   
   <!-- Google Fonts & FontAwesome -->
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
@@ -402,6 +402,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      flex-wrap: wrap;
     }
 
     .card-info h3 span.heart-mini {
@@ -424,6 +425,7 @@
       justify-content: center;
       color: var(--badge-text);
       transition: all 0.3s ease;
+      flex-shrink: 0;
     }
 
     .link-card:hover .arrow-box {
@@ -487,6 +489,7 @@
       font-size: 0.92rem;
       font-weight: 500;
       transition: all 0.25s ease;
+      gap: 10px;
     }
 
     .sub-item:hover {
@@ -506,16 +509,154 @@
       transform: translateX(3px);
     }
 
-    /* Timing / Live Tag */
-    .live-tag {
-      background: rgba(239, 68, 68, 0.2);
-      border: 1px solid rgba(239, 68, 68, 0.45);
-      color: #fca5a5;
-      font-size: 0.75rem;
-      padding: 2px 8px;
-      border-radius: 20px;
-      margin-left: 6px;
-      font-weight: 600;
+    /* =========================================================
+       LIVE STREAMING & BLUE GLOWING TIMING ENGINE
+       ========================================================= */
+    .live-wrapper {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    /* Blue Glowing Time Tag */
+    .blue-time-glow {
+      background: rgba(14, 165, 233, 0.15);
+      border: 1.5px solid #00f0ff;
+      color: #e0faff;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 0.78rem;
+      letter-spacing: 0.5px;
+      padding: 4px 10px;
+      border-radius: 8px;
+      text-transform: uppercase;
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.7), inset 0 0 8px rgba(0, 240, 255, 0.35);
+      text-shadow: 0 0 6px #00f0ff;
+      animation: bluePulse 1.8s infinite alternate ease-in-out;
+      transform: skewX(-10deg);
+    }
+
+    .blue-time-glow span {
+      display: inline-block;
+      transform: skewX(10deg);
+    }
+
+    @keyframes bluePulse {
+      0% {
+        box-shadow: 0 0 8px rgba(0, 240, 255, 0.45), inset 0 0 4px rgba(0, 240, 255, 0.2);
+        border-color: rgba(0, 240, 255, 0.7);
+      }
+      100% {
+        box-shadow: 0 0 16px rgba(0, 240, 255, 0.95), 0 0 24px rgba(0, 168, 255, 0.5), inset 0 0 10px rgba(0, 240, 255, 0.5);
+        border-color: #00f0ff;
+      }
+    }
+
+    /* Red Slanted Live Badge */
+    .live-stream-badge-container {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .live-stream-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: linear-gradient(135deg, #e60000 0%, #ff1a1a 45%, #b30000 100%);
+      color: #ffffff;
+      padding: 4px 14px 4px 10px;
+      border-radius: 8px;
+      transform: skewX(-12deg);
+      box-shadow: 0 0 16px rgba(255, 26, 26, 0.85), 0 0 28px rgba(255, 0, 0, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+      border: 1px solid rgba(255, 120, 120, 0.4);
+      animation: liveGlowPulse 1.8s infinite alternate ease-in-out;
+      position: relative;
+    }
+
+    .live-dot {
+      width: 6.5px;
+      height: 6.5px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 8px #ffffff;
+      animation: blinkDot 1s infinite alternate;
+      transform: skewX(12deg);
+    }
+
+    .live-text {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-style: italic;
+      letter-spacing: 1.5px;
+      font-size: 0.95rem;
+      color: #ffffff;
+      text-transform: uppercase;
+      transform: skewX(12deg);
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    }
+
+    .live-stream-waves {
+      position: absolute;
+      right: -12px;
+      top: -7px;
+      color: #ff1a1a;
+      font-size: 0.95rem;
+      filter: drop-shadow(0 0 6px #ff0000);
+      animation: broadcastFade 1.2s infinite ease-in-out alternate;
+    }
+
+    .streaming-caption {
+      font-size: 0.62rem;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      color: #000000;
+      text-transform: uppercase;
+      font-style: italic;
+      margin-top: 2px;
+      position: relative;
+      text-shadow: -1px -1px 0 #ff3344, 1px -1px 0 #ff3344, -1px 1px 0 #ff3344, 1px 1px 0 #ff3344, 0 0 6px #ff0033;
+    }
+
+    .streaming-caption::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #ff1a1a;
+      box-shadow: 0 0 6px #ff1a1a;
+    }
+
+    /* Mini variant for compact layouts */
+    .live-wrapper.mini {
+      transform: scale(0.85);
+      transform-origin: right center;
+    }
+
+    @keyframes liveGlowPulse {
+      0% {
+        box-shadow: 0 0 10px rgba(255, 26, 26, 0.6), 0 0 20px rgba(255, 0, 0, 0.3);
+      }
+      100% {
+        box-shadow: 0 0 20px rgba(255, 26, 26, 1), 0 0 34px rgba(255, 0, 0, 0.85), inset 0 0 8px rgba(255, 255, 255, 0.4);
+      }
+    }
+
+    @keyframes blinkDot {
+      0% { opacity: 0.2; transform: skewX(12deg) scale(0.8); }
+      100% { opacity: 1; transform: skewX(12deg) scale(1.2); }
+    }
+
+    @keyframes broadcastFade {
+      0% { opacity: 0.4; transform: scale(0.9); }
+      100% { opacity: 1; transform: scale(1.1); }
     }
 
     /* Timetable Card Layout */
@@ -622,35 +763,63 @@
     <!-- Cards List -->
     <div class="links-list" id="linksList">
 
-      <!-- 1. करेंट अफेयर्स KUMAR GAURAV -->
+      <!-- 1. करेंट अफेयर्स KUMAR GAURAV (6 AM LIVE BATCH) -->
       <a href="https://www.youtube.com/results?search_query=phool+patti+wali+class" target="_blank" class="link-card searchable-entry">
         <div class="card-icon" style="color: #ff0000; border-color: rgba(255,0,0,0.4); background: rgba(255,0,0,0.15);">
           <i class="fa-brands fa-youtube"></i>
         </div>
         <div class="card-info">
           <h3>करेंट अफेयर्स - कुमार गौरव सर <span class="heart-mini">💖</span></h3>
-          <p>फूल पत्ती वाली क्लास • सुबह 6:00 बजे</p>
+          <p>फूल पत्ती वाली क्लास • सुबह 6:00 बजे (Live Batch)</p>
         </div>
+        
+        <!-- BLUE GLOWING TIME + LIVE BADGE -->
+        <div class="live-wrapper">
+          <div class="blue-time-glow"><span>6 AM</span></div>
+          <div class="live-stream-badge-container">
+            <div class="live-stream-pill">
+              <span class="live-dot"></span>
+              <span class="live-text">LIVE</span>
+              <i class="fa-solid fa-wifi live-stream-waves"></i>
+            </div>
+            <span class="streaming-caption">STREAMING</span>
+          </div>
+        </div>
+
         <div class="arrow-box">
           <i class="fa-solid fa-arrow-up-right-from-square"></i>
         </div>
       </a>
 
-      <!-- 2. I PAD - GOOGLE MEET -->
+      <!-- 2. I PAD - GOOGLE MEET (9 PM LIVE BATCH) -->
       <a href="https://meet.google.com/vsd-yrcw-zju" target="_blank" class="link-card searchable-entry">
         <div class="card-icon" style="color: #10b981; border-color: rgba(16,185,129,0.4); background: rgba(16,185,129,0.15);">
           <i class="fa-solid fa-video"></i>
         </div>
         <div class="card-info">
           <h3>I PAD - GOOGLE MEET <span class="heart-mini">💖</span></h3>
-          <p>Daily Live Discussion • 9:00 PM</p>
+          <p>Daily Live Discussion • 9:00 PM (Live Batch)</p>
         </div>
+
+        <!-- BLUE GLOWING TIME + LIVE BADGE -->
+        <div class="live-wrapper">
+          <div class="blue-time-glow"><span>9 PM</span></div>
+          <div class="live-stream-badge-container">
+            <div class="live-stream-pill">
+              <span class="live-dot"></span>
+              <span class="live-text">LIVE</span>
+              <i class="fa-solid fa-wifi live-stream-waves"></i>
+            </div>
+            <span class="streaming-caption">STREAMING</span>
+          </div>
+        </div>
+
         <div class="arrow-box">
           <i class="fa-solid fa-arrow-up-right-from-square"></i>
         </div>
       </a>
 
-      <!-- 3. FOLDER: भाषा -->
+      <!-- 3. FOLDER: भाषा (HEADER ME BHI 11 AM LIVE GLOW EFFECT) -->
       <div class="expandable-container searchable-entry" id="bhashaContainer">
         <div class="link-card" onclick="toggleSubtopics('bhashaContainer')">
           <div class="card-icon" style="color: #a855f7; border-color: rgba(168,85,247,0.4); background: rgba(168,85,247,0.15);">
@@ -658,8 +827,22 @@
           </div>
           <div class="card-info">
             <h3>भाषा (HINDI / ENGLISH / SANSKRIT) <span class="heart-mini">💖</span></h3>
-            <p>Amarnath Sir, Aman Sir, Gyan Ganga</p>
+            <p>Amarnath Sir, Aman Vashishth Sir, Gyan Ganga</p>
           </div>
+
+          <!-- BAHAR FOLDER PAR BHI 11 AM LIVE BADGE -->
+          <div class="live-wrapper">
+            <div class="blue-time-glow"><span>11 AM</span></div>
+            <div class="live-stream-badge-container">
+              <div class="live-stream-pill">
+                <span class="live-dot"></span>
+                <span class="live-text">LIVE</span>
+                <i class="fa-solid fa-wifi live-stream-waves"></i>
+              </div>
+              <span class="streaming-caption">STREAMING</span>
+            </div>
+          </div>
+
           <div class="arrow-box">
             <i class="fa-solid fa-chevron-down chevron-arrow"></i>
           </div>
@@ -670,10 +853,25 @@
             <span>1. HINDI — AMARNATH SIR</span>
             <i class="fa-solid fa-arrow-up-right-from-square"></i>
           </a>
+
+          <!-- ENGLISH AMAN VASHISHTH SIR (11 AM LIVE BATCH) -->
           <a href="https://sw.learntopper.in/content?courseId=6a9c1a6b4d63c7a6710471a3" target="_blank" class="sub-item">
-            <span>2. ENGLISH — AMAN SIR</span>
-            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            <span>2. ENGLISH — AMAN VASHISHTH SIR</span>
+            
+            <div class="live-wrapper mini">
+              <div class="blue-time-glow"><span>11 AM</span></div>
+              <div class="live-stream-badge-container">
+                <div class="live-stream-pill">
+                  <span class="live-dot"></span>
+                  <span class="live-text">LIVE</span>
+                  <i class="fa-solid fa-wifi live-stream-waves"></i>
+                </div>
+                <span class="streaming-caption">STREAMING</span>
+              </div>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </div>
           </a>
+
           <a href="https://www.youtube.com/playlist?list=PLVGKTJAtRpeY" target="_blank" class="sub-item">
             <span>3. SANSKRIT — GYAN GANGA</span>
             <i class="fa-brands fa-youtube"></i>
@@ -695,7 +893,7 @@
         </div>
       </a>
 
-      <!-- 5. FOLDER: GS -->
+      <!-- 5. FOLDER: GS (HEADER ME BHI 10 AM LIVE GLOW EFFECT) -->
       <div class="expandable-container searchable-entry" id="gsContainer">
         <div class="link-card" onclick="toggleSubtopics('gsContainer')">
           <div class="card-icon" style="color: #eab308; border-color: rgba(234,179,8,0.4); background: rgba(234,179,8,0.15);">
@@ -703,18 +901,46 @@
           </div>
           <div class="card-info">
             <h3>GS (SCIENCE / EVS & GEOGRAPHY) <span class="heart-mini">💖</span></h3>
-            <p>Radhika Mam (10 AM Live), Sachin Sir</p>
+            <p>Radhika Mam, Sachin Sir</p>
           </div>
+
+          <!-- BAHAR FOLDER PAR BHI 10 AM LIVE BADGE -->
+          <div class="live-wrapper">
+            <div class="blue-time-glow"><span>10 AM</span></div>
+            <div class="live-stream-badge-container">
+              <div class="live-stream-pill">
+                <span class="live-dot"></span>
+                <span class="live-text">LIVE</span>
+                <i class="fa-solid fa-wifi live-stream-waves"></i>
+              </div>
+              <span class="streaming-caption">STREAMING</span>
+            </div>
+          </div>
+
           <div class="arrow-box">
             <i class="fa-solid fa-chevron-down chevron-arrow"></i>
           </div>
         </div>
 
         <div id="gsList" class="subtopics-list">
+          <!-- SCIENCE RADHIKA MAM (10 AM LIVE BATCH) -->
           <a href="https://sw.learntopper.in/content?courseId=6a4e35315bac0ae4bab52444" target="_blank" class="sub-item">
-            <span>1. SCIENCE — RADHIKA MAM <span class="live-tag">🔴 10:00 AM LIVE</span></span>
-            <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            <span>1. SCIENCE — RADHIKA MAM</span>
+
+            <div class="live-wrapper mini">
+              <div class="blue-time-glow"><span>10 AM</span></div>
+              <div class="live-stream-badge-container">
+                <div class="live-stream-pill">
+                  <span class="live-dot"></span>
+                  <span class="live-text">LIVE</span>
+                  <i class="fa-solid fa-wifi live-stream-waves"></i>
+                </div>
+                <span class="streaming-caption">STREAMING</span>
+              </div>
+              <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </div>
           </a>
+
           <a href="https://t.me/c/3913088196/388/389" target="_blank" class="sub-item">
             <span>2. EVS & GEOGRAPHY — SACHIN SIR</span>
             <i class="fa-brands fa-telegram"></i>
