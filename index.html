@@ -4,17 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Study Portal - Dynamic Atmospheric Theme</title>
-  
-  <!-- PWA Theme Color & Web App Meta -->
-  <meta name="theme-color" content="#18091f">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Study Portal">
-  <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3429/3429154.png">
-
-  <!-- Embedded PWA Manifest via Data URI -->
-  <link rel="manifest" href='data:application/manifest+json,{"name":"Study Portal","short_name":"StudyPortal","start_url":"./","display":"standalone","background_color":"#18091f","theme_color":"#18091f","icons":[{"src":"https://cdn-icons-png.flaticon.com/512/3429/3429154.png","sizes":"192x192","type":"image/png"},{"src":"https://cdn-icons-png.flaticon.com/512/3429/3429154.png","sizes":"512x512","type":"image/png"}]}'>
-
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff4d94">
   <!-- Google Fonts & FontAwesome -->
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -129,94 +120,6 @@
       overflow-x: hidden;
       transition: background 1s ease;
       user-select: none;
-    }
-
-    /* PWA Install Banner */
-    .pwa-install-banner {
-      display: none;
-      position: fixed;
-      top: 18px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 94%;
-      max-width: 480px;
-      background: rgba(24, 7, 28, 0.94);
-      border: 1.5px solid #00f0ff;
-      box-shadow: 0 0 25px rgba(0, 240, 255, 0.45);
-      border-radius: 18px;
-      padding: 12px 16px;
-      z-index: 10000;
-      backdrop-filter: blur(20px);
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      animation: popBanner 0.4s cubic-bezier(0.2, 0.8, 0.25, 1);
-    }
-
-    @keyframes popBanner {
-      0% { opacity: 0; transform: translate(-50%, -20px); }
-      100% { opacity: 1; transform: translate(-50%, 0); }
-    }
-
-    .pwa-info {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .pwa-info i {
-      font-size: 1.8rem;
-      color: #00f0ff;
-      filter: drop-shadow(0 0 8px #00f0ff);
-    }
-
-    .pwa-info h4 {
-      margin: 0;
-      font-size: 0.95rem;
-      color: #fff;
-      font-weight: 700;
-    }
-
-    .pwa-info p {
-      margin: 2px 0 0;
-      font-size: 0.75rem;
-      color: #cbd5e1;
-    }
-
-    .pwa-actions {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .pwa-install-btn {
-      background: linear-gradient(135deg, #00f0ff, #0284c7);
-      border: none;
-      color: #000;
-      font-weight: 800;
-      padding: 8px 14px;
-      border-radius: 10px;
-      font-size: 0.8rem;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: 0 0 12px rgba(0, 240, 255, 0.6);
-      transition: transform 0.2s ease, filter 0.2s ease;
-    }
-
-    .pwa-install-btn:hover {
-      transform: scale(1.05);
-      filter: brightness(1.15);
-    }
-
-    .pwa-close-btn {
-      background: transparent;
-      border: none;
-      color: #94a3b8;
-      font-size: 1.2rem;
-      cursor: pointer;
-      padding: 4px;
     }
 
     #ambientLayer {
@@ -617,6 +520,7 @@
       flex-shrink: 0;
     }
 
+    /* Blue Glowing Time Tag */
     .blue-time-glow {
       background: rgba(14, 165, 233, 0.15);
       border: 1.5px solid #00f0ff;
@@ -650,6 +554,7 @@
       }
     }
 
+    /* Red Slanted Live Badge */
     .live-stream-badge-container {
       display: inline-flex;
       flex-direction: column;
@@ -730,6 +635,7 @@
       box-shadow: 0 0 6px #ff1a1a;
     }
 
+    /* Mini variant for compact layouts */
     .live-wrapper.mini {
       transform: scale(0.85);
       transform-origin: right center;
@@ -836,28 +742,26 @@
 </head>
 <body class="theme-night">
 
-  <!-- PWA INSTALL BANNER POPUP -->
-  <div class="pwa-install-banner" id="pwaInstallBanner">
-    <div class="pwa-info">
-      <i class="fa-solid fa-mobile-screen-button"></i>
-      <div>
-        <h4>Install Study Portal</h4>
-        <p>Android ya PC par Home Screen App ki tarah save karein</p>
-      </div>
-    </div>
-    <div class="pwa-actions">
-      <button class="pwa-install-btn" id="pwaInstallBtn">
-        <i class="fa-solid fa-download"></i> INSTALL
-      </button>
-      <button class="pwa-close-btn" onclick="dismissPwaBanner()">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-    </div>
-  </div>
-
   <div class="thunder-flash-overlay" id="thunderFlash"></div>
   <div id="ambientLayer"></div>
-
+<!-- PWA INSTALL POPUP BANNER -->
+<div id="pwaInstallBanner" style="display: none; position: fixed; top: 16px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 440px; background: rgba(30, 9, 30, 0.95); border: 1.5px solid #00f0ff; box-shadow: 0 0 25px rgba(0, 240, 255, 0.4); border-radius: 16px; padding: 14px 18px; z-index: 10000; backdrop-filter: blur(15px); align-items: center; justify-content: space-between; gap: 12px;">
+  <div style="display: flex; align-items: center; gap: 12px;">
+    <i class="fa-solid fa-mobile-screen-button" style="font-size: 1.8rem; color: #00f0ff;"></i>
+    <div>
+      <h4 style="margin: 0; font-size: 0.95rem; color: #fff;">Install Study Portal</h4>
+      <p style="margin: 2px 0 0; font-size: 0.76rem; color: #cbd5e1;">Home Screen par App ki tarah save karein</p>
+    </div>
+  </div>
+  <div style="display: flex; gap: 8px; align-items: center;">
+    <button id="pwaInstallBtn" style="background: linear-gradient(135deg, #00f0ff, #0284c7); border: none; color: #000; font-weight: 700; padding: 8px 14px; border-radius: 8px; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+      <i class="fa-solid fa-download"></i> INSTALL
+    </button>
+    <button onclick="document.getElementById('pwaInstallBanner').style.display='none'" style="background: transparent; border: none; color: #94a3b8; font-size: 1.1rem; cursor: pointer;">
+      <i class="fa-solid fa-xmark"></i>
+    </button>
+  </div>
+</div>
   <div class="container">
     <header>
       <div class="love-badge">
@@ -1418,63 +1322,40 @@
         card.style.transform = `perspective(600px) rotateX(${-y * 0.04}deg) rotateY(${x * 0.04}deg) translateY(-3px) scale(1.012)`;
       });
 
+// Service Worker Register
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js');
+}
+
+// Install prompt handle karna
+let deferredPrompt;
+const installBanner = document.getElementById('pwaInstallBanner');
+const installBtn = document.getElementById('pwaInstallBtn');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBanner.style.display = 'flex'; // Banner show karega
+});
+
+installBtn.addEventListener('click', async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === 'accepted') {
+      installBanner.style.display = 'none';
+    }
+    deferredPrompt = null;
+  }
+});
+
+window.addEventListener('appinstalled', () => {
+  installBanner.style.display = 'none';
+});
+
       card.addEventListener('mouseleave', () => {
         card.style.transform = '';
       });
-    });
-
-    // =========================================================
-    // INLINE SERVICE WORKER (STANDALONE SINGLE-FILE PWA)
-    // =========================================================
-    if ('serviceWorker' in navigator) {
-      const swCode = `
-        self.addEventListener('install', (e) => self.skipWaiting());
-        self.addEventListener('activate', (e) => self.clients.claim());
-        self.addEventListener('fetch', (e) => {
-          e.respondWith(fetch(e.request).catch(() => new Response('Offline')));
-        });
-      `;
-      const blob = new Blob([swCode], { type: 'text/javascript' });
-      const swUrl = URL.createObjectURL(blob);
-      navigator.serviceWorker.register(swUrl).catch(err => console.log('SW Note:', err));
-    }
-
-    // =========================================================
-    // AUTOMATIC PWA PROMPT & BANNER ENGINE
-    // =========================================================
-    let deferredPrompt = null;
-    const installBanner = document.getElementById('pwaInstallBanner');
-    const installBtn = document.getElementById('pwaInstallBtn');
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      // Show custom glowing top install bar
-      installBanner.style.display = 'flex';
-    });
-
-    installBtn.addEventListener('click', async () => {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        const { outcome } = await deferredPrompt.userChoice;
-        if (outcome === 'accepted') {
-          installBanner.style.display = 'none';
-        }
-        deferredPrompt = null;
-      } else {
-        // Fallback guide if browser already dismissed standard prompt
-        alert('Apne browser ke Menu (⋮ ya Share icon) par click karke "Add to Home screen" ya "Install App" select karein.');
-        installBanner.style.display = 'none';
-      }
-    });
-
-    function dismissPwaBanner() {
-      installBanner.style.display = 'none';
-    }
-
-    window.addEventListener('appinstalled', () => {
-      installBanner.style.display = 'none';
-      deferredPrompt = null;
     });
   </script>
 </body>
