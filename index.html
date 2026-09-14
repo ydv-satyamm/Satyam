@@ -2,15 +2,24 @@
 <html lang="hi">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Study Portal - Dynamic Atmospheric Theme</title>
-  <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#ff4d94">
-  <!-- Google Fonts & FontAwesome -->
+  
+  <meta name="theme-color" content="#18091f">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Study Portal">
+  <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3429/3429154.png">
+
+  <link rel="manifest" href='data:application/manifest+json,{"name":"Study Portal","short_name":"StudyPortal","start_url":"./","display":"standalone","background_color":"#18091f","theme_color":"#18091f","icons":[{"src":"https://cdn-icons-png.flaticon.com/512/3429/3429154.png","sizes":"192x192","type":"image/png"},{"src":"https://cdn-icons-png.flaticon.com/512/3429/3429154.png","sizes":"512x512","type":"image/png"}]}'>
+
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
+    /* =========================================================
+       DYNAMIC THEME CSS VARIABLES & ATMOSPHERES (RESTORED AS-IS)
+       ========================================================= */
     :root {
       --bg-gradient: linear-gradient(135deg, #2b092b 0%, #4a0e2e 50%, #1f041b 100%);
       --accent-color: #ff4d94;
@@ -106,6 +115,13 @@
       padding: 0;
       box-sizing: border-box;
       font-family: 'Outfit', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: hidden;
     }
 
     body {
@@ -133,23 +149,7 @@
       overflow: hidden;
     }
 
-    /* Swipe Trails */
-    .swipe-trail-spark {
-      position: fixed;
-      pointer-events: none;
-      z-index: 998;
-      transform: translate(-50%, -50%);
-      animation: swipeParticleFloat 1.2s cubic-bezier(0.2, 0.8, 0.25, 1) forwards;
-      filter: drop-shadow(0 0 6px var(--accent-glow));
-    }
-
-    @keyframes swipeParticleFloat {
-      0% { opacity: 0.9; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
-      50% { opacity: 0.7; transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% - 25px)) scale(0.85) rotate(45deg); }
-      100% { opacity: 0; transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% - 55px)) scale(0.3) rotate(90deg); }
-    }
-
-    /* Atmospheres */
+    /* 1. MORNING SUN & RAYS */
     .morning-sun-glow {
       position: absolute;
       top: -80px;
@@ -184,6 +184,7 @@
     @keyframes sunPulse { 0% { transform: scale(0.92); opacity: 0.75; } 100% { transform: scale(1.1); opacity: 1; } }
     @keyframes morningFloat { 0% { transform: translateY(0) scale(0.6); opacity: 0; } 20% { opacity: 0.8; } 80% { opacity: 0.8; } 100% { transform: translateY(-110vh) scale(1.2); opacity: 0; } }
 
+    /* 2. AFTERNOON THUNDER & STORM */
     .thunder-flash-overlay {
       position: fixed;
       top: 0;
@@ -224,6 +225,7 @@
     }
     @keyframes windBlow { 0% { transform: translateX(-20vw); opacity: 0; } 30% { opacity: 0.7; } 80% { opacity: 0.7; } 100% { transform: translateX(120vw); opacity: 0; } }
 
+    /* 3. EVENING TWILIGHT & BIRDS */
     .evening-sunset-disc {
       position: absolute;
       bottom: 5%;
@@ -243,6 +245,7 @@
     }
     @keyframes birdFly { 0% { transform: translate(-10vw, 0) scale(0.7); opacity: 0; } 10% { opacity: 0.75; } 50% { transform: translate(50vw, -30px) scale(0.9); } 90% { opacity: 0.75; } 100% { transform: translate(110vw, -60px) scale(0.7); opacity: 0; } }
 
+    /* 4. NIGHT FLOATING HEARTS */
     .heart-particle {
       position: absolute;
       bottom: -40px;
@@ -251,6 +254,23 @@
     }
     @keyframes floatUp { 0% { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 0; } 20% { opacity: 0.7; } 80% { opacity: 0.7; } 100% { transform: translateY(-110vh) scale(1.3) rotate(360deg); opacity: 0; } }
 
+    /* Swipe Particles */
+    .swipe-trail-spark {
+      position: fixed;
+      pointer-events: none;
+      z-index: 998;
+      transform: translate(-50%, -50%);
+      animation: swipeParticleFloat 1.2s cubic-bezier(0.2, 0.8, 0.25, 1) forwards;
+      filter: drop-shadow(0 0 6px var(--accent-glow));
+    }
+
+    @keyframes swipeParticleFloat {
+      0% { opacity: 0.9; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+      50% { opacity: 0.7; transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% - 25px)) scale(0.85) rotate(45deg); }
+      100% { opacity: 0; transform: translate(calc(-50% + var(--dx, 0px)), calc(-50% - 55px)) scale(0.3) rotate(90deg); }
+    }
+
+    /* Cards & Layout */
     .container {
       width: 100%;
       max-width: 760px;
@@ -334,6 +354,7 @@
       display: flex;
       flex-direction: column;
       gap: 16px;
+      width: 100%;
     }
 
     .link-card {
@@ -353,6 +374,7 @@
       transform-style: preserve-3d;
       will-change: transform;
       cursor: pointer;
+      width: 100%;
     }
 
     .link-card::before {
@@ -377,6 +399,25 @@
       box-shadow: 0 14px 28px var(--accent-glow);
     }
 
+    .card-poster {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1.5px solid var(--card-hover-border);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
+    .sub-poster {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      object-fit: cover;
+      flex-shrink: 0;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+
     .card-icon {
       width: 52px;
       height: 52px;
@@ -393,6 +434,7 @@
 
     .card-info {
       flex: 1;
+      min-width: 0;
     }
 
     .card-info h3 {
@@ -403,12 +445,12 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      flex-wrap: wrap;
     }
 
     .card-info h3 span.heart-mini {
       font-size: 0.85rem;
       color: var(--accent-color);
+      flex-shrink: 0;
     }
 
     .card-info p {
@@ -438,6 +480,7 @@
     .expandable-container {
       display: flex;
       flex-direction: column;
+      width: 100%;
     }
 
     .expandable-container .link-card {
@@ -462,13 +505,14 @@
 
     .subtopics-list {
       display: none;
-      background: rgba(20, 7, 24, 0.8);
+      background: rgba(20, 7, 24, 0.85);
       border: 1px solid var(--card-border);
       border-top: none;
       border-radius: 0 0 18px 18px;
       padding: 12px;
       backdrop-filter: blur(16px);
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+      width: 100%;
     }
 
     .expandable-container.active > .subtopics-list {
@@ -491,23 +535,44 @@
       font-weight: 500;
       transition: all 0.25s ease;
       gap: 10px;
+      width: 100%;
     }
 
     .sub-item:hover {
       background: rgba(255, 77, 148, 0.18);
       border-color: var(--accent-color);
       color: #fff;
-      transform: translateX(4px);
+    }
+
+    .sub-item-content {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .sub-item-content span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .sub-item i {
       color: var(--accent-color);
-      font-size: 0.85rem;
-      transition: transform 0.2s ease;
+      font-size: 0.95rem;
+      flex-shrink: 0;
+      margin-left: auto;
     }
 
-    .sub-item:hover i {
-      transform: translateX(3px);
+    .sub-item .fa-brands.fa-telegram {
+      color: #26a5e4;
+      font-size: 1.15rem;
+    }
+
+    .sub-item .fa-brands.fa-youtube {
+      color: #ff0000;
+      font-size: 1.15rem;
     }
 
     /* =========================================================
@@ -520,12 +585,10 @@
       flex-shrink: 0;
     }
 
-    /* Blue Glowing Time Tag */
     .blue-time-glow {
       background: rgba(14, 165, 233, 0.15);
       border: 1.5px solid #00f0ff;
       color: #e0faff;
-      font-family: 'Outfit', sans-serif;
       font-weight: 800;
       font-size: 0.78rem;
       letter-spacing: 0.5px;
@@ -536,6 +599,7 @@
       text-shadow: 0 0 6px #00f0ff;
       animation: bluePulse 1.8s infinite alternate ease-in-out;
       transform: skewX(-10deg);
+      white-space: nowrap;
     }
 
     .blue-time-glow span {
@@ -554,7 +618,6 @@
       }
     }
 
-    /* Red Slanted Live Badge */
     .live-stream-badge-container {
       display: inline-flex;
       flex-direction: column;
@@ -576,7 +639,6 @@
       box-shadow: 0 0 16px rgba(255, 26, 26, 0.85), 0 0 28px rgba(255, 0, 0, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.4);
       border: 1px solid rgba(255, 120, 120, 0.4);
       animation: liveGlowPulse 1.8s infinite alternate ease-in-out;
-      position: relative;
     }
 
     .live-dot {
@@ -584,14 +646,12 @@
       height: 6.5px;
       background-color: #ffffff;
       border-radius: 50%;
-      display: inline-block;
       box-shadow: 0 0 8px #ffffff;
       animation: blinkDot 1s infinite alternate;
       transform: skewX(12deg);
     }
 
     .live-text {
-      font-family: 'Outfit', sans-serif;
       font-weight: 900;
       font-style: italic;
       letter-spacing: 1.5px;
@@ -635,19 +695,14 @@
       box-shadow: 0 0 6px #ff1a1a;
     }
 
-    /* Mini variant for compact layouts */
     .live-wrapper.mini {
       transform: scale(0.85);
       transform-origin: right center;
     }
 
     @keyframes liveGlowPulse {
-      0% {
-        box-shadow: 0 0 10px rgba(255, 26, 26, 0.6), 0 0 20px rgba(255, 0, 0, 0.3);
-      }
-      100% {
-        box-shadow: 0 0 20px rgba(255, 26, 26, 1), 0 0 34px rgba(255, 0, 0, 0.85), inset 0 0 8px rgba(255, 255, 255, 0.4);
-      }
+      0% { box-shadow: 0 0 10px rgba(255, 26, 26, 0.6); }
+      100% { box-shadow: 0 0 20px rgba(255, 26, 26, 1), 0 0 34px rgba(255, 0, 0, 0.85); }
     }
 
     @keyframes blinkDot {
@@ -660,7 +715,92 @@
       100% { opacity: 1; transform: scale(1.1); }
     }
 
-    /* Timetable Card Layout */
+    /* PWA Banner */
+    .pwa-install-banner {
+      display: none;
+      position: fixed;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: calc(100% - 24px);
+      max-width: 480px;
+      background: rgba(24, 7, 28, 0.96);
+      border: 1.5px solid #00f0ff;
+      box-shadow: 0 0 25px rgba(0, 240, 255, 0.45);
+      border-radius: 16px;
+      padding: 10px 14px;
+      z-index: 10000;
+      backdrop-filter: blur(20px);
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .pwa-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .pwa-info i {
+      font-size: 1.5rem;
+      color: #00f0ff;
+      flex-shrink: 0;
+      filter: drop-shadow(0 0 8px #00f0ff);
+    }
+
+    .pwa-info h4 {
+      margin: 0;
+      font-size: 0.88rem;
+      color: #fff;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .pwa-info p {
+      margin: 1px 0 0;
+      font-size: 0.7rem;
+      color: #cbd5e1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .pwa-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .pwa-install-btn {
+      background: linear-gradient(135deg, #00f0ff, #0284c7);
+      border: none;
+      color: #000;
+      font-weight: 800;
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+    }
+
+    .pwa-close-btn {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 1.1rem;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    /* Timetable */
     .schedule-box {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -688,10 +828,6 @@
       display: inline-flex;
       align-items: center;
       gap: 5px;
-    }
-
-    .schedule-header a:hover {
-      text-decoration: underline;
     }
 
     .schedule-grid {
@@ -738,30 +874,111 @@
     footer i {
       color: var(--accent-color);
     }
+
+    /* Mobile Responsive Optimizations */
+    @media (max-width: 600px) {
+      body {
+        padding: 16px 8px;
+      }
+
+      header h1 {
+        font-size: 1.7rem;
+      }
+
+      header p {
+        font-size: 0.8rem;
+      }
+
+      .link-card {
+        padding: 12px 10px;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+
+      .card-poster, .card-icon {
+        width: 42px;
+        height: 42px;
+        font-size: 1.1rem;
+      }
+
+      .card-info {
+        flex: 1 1 calc(100% - 90px);
+      }
+
+      .card-info h3 {
+        font-size: 0.9rem;
+      }
+
+      .card-info p {
+        font-size: 0.74rem;
+      }
+
+      .link-card > .live-wrapper {
+        order: 3;
+        width: 100%;
+        justify-content: flex-start;
+        margin-top: 6px;
+        padding-top: 6px;
+        border-top: 1px dashed rgba(255, 255, 255, 0.08);
+      }
+
+      .arrow-box {
+        width: 28px;
+        height: 28px;
+        font-size: 0.75rem;
+      }
+
+      .sub-item {
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 8px 10px;
+      }
+
+      .sub-item-content {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .sub-item-content span {
+        font-size: 0.82rem;
+      }
+
+      .schedule-entry-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+      }
+
+      .schedule-time {
+        font-size: 0.7rem;
+      }
+    }
   </style>
 </head>
 <body class="theme-night">
 
-  <div class="thunder-flash-overlay" id="thunderFlash"></div>
-  <div id="ambientLayer"></div>
-<!-- PWA INSTALL POPUP BANNER -->
-<div id="pwaInstallBanner" style="display: none; position: fixed; top: 16px; left: 50%; transform: translateX(-50%); width: 92%; max-width: 440px; background: rgba(30, 9, 30, 0.95); border: 1.5px solid #00f0ff; box-shadow: 0 0 25px rgba(0, 240, 255, 0.4); border-radius: 16px; padding: 14px 18px; z-index: 10000; backdrop-filter: blur(15px); align-items: center; justify-content: space-between; gap: 12px;">
-  <div style="display: flex; align-items: center; gap: 12px;">
-    <i class="fa-solid fa-mobile-screen-button" style="font-size: 1.8rem; color: #00f0ff;"></i>
-    <div>
-      <h4 style="margin: 0; font-size: 0.95rem; color: #fff;">Install Study Portal</h4>
-      <p style="margin: 2px 0 0; font-size: 0.76rem; color: #cbd5e1;">Home Screen par App ki tarah save karein</p>
+  <div class="pwa-install-banner" id="pwaInstallBanner">
+    <div class="pwa-info">
+      <i class="fa-solid fa-mobile-screen-button"></i>
+      <div>
+        <h4>Install Study Portal</h4>
+        <p>Home Screen App ki tarah save karein</p>
+      </div>
+    </div>
+    <div class="pwa-actions">
+      <button class="pwa-install-btn" id="pwaInstallBtn">
+        <i class="fa-solid fa-download"></i> INSTALL
+      </button>
+      <button class="pwa-close-btn" onclick="dismissPwaBanner()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
     </div>
   </div>
-  <div style="display: flex; gap: 8px; align-items: center;">
-    <button id="pwaInstallBtn" style="background: linear-gradient(135deg, #00f0ff, #0284c7); border: none; color: #000; font-weight: 700; padding: 8px 14px; border-radius: 8px; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; gap: 5px;">
-      <i class="fa-solid fa-download"></i> INSTALL
-    </button>
-    <button onclick="document.getElementById('pwaInstallBanner').style.display='none'" style="background: transparent; border: none; color: #94a3b8; font-size: 1.1rem; cursor: pointer;">
-      <i class="fa-solid fa-xmark"></i>
-    </button>
-  </div>
-</div>
+
+  <div class="thunder-flash-overlay" id="thunderFlash"></div>
+  <div id="ambientLayer"></div>
+
   <div class="container">
     <header>
       <div class="love-badge">
@@ -781,17 +998,14 @@
     <!-- Cards List -->
     <div class="links-list" id="linksList">
 
-      <!-- 1. करेंट अफेयर्स KUMAR GAURAV (6 AM LIVE BATCH) -->
-      <a href="https://www.youtube.com/results?search_query=phool+patti+wali+class" target="_blank" class="link-card searchable-entry">
-        <div class="card-icon" style="color: #ff0000; border-color: rgba(255,0,0,0.4); background: rgba(255,0,0,0.15);">
-          <i class="fa-brands fa-youtube"></i>
-        </div>
+      <!-- 1. करेंट अफेयर्स KUMAR GAURAV -->
+      <a href="https://www.youtube.com/results?search_query=live+phool+patti+wali+class" target="_blank" class="link-card searchable-entry">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBEykdkTmxEiYgtWvMziuxMM9uGwHrA8vexMOPGcVmgg&s=10" alt="Kumar Gaurav Sir" class="card-poster">
         <div class="card-info">
           <h3>करेंट अफेयर्स - कुमार गौरव सर <span class="heart-mini">💖</span></h3>
-          <p>फूल पत्ती वाली क्लास • सुबह 6:00 बजे (Live Batch)</p>
+          <p>फूल पत्ती वाली क्लास • सुबह 6:00 बजे</p>
         </div>
         
-        <!-- BLUE GLOWING TIME + LIVE BADGE -->
         <div class="live-wrapper">
           <div class="blue-time-glow"><span>6 AM</span></div>
           <div class="live-stream-badge-container">
@@ -809,17 +1023,14 @@
         </div>
       </a>
 
-      <!-- 2. I PAD - GOOGLE MEET (9 PM LIVE BATCH) -->
+      <!-- 2. I PAD - GOOGLE MEET -->
       <a href="https://meet.google.com/vsd-yrcw-zju" target="_blank" class="link-card searchable-entry">
-        <div class="card-icon" style="color: #10b981; border-color: rgba(16,185,129,0.4); background: rgba(16,185,129,0.15);">
-          <i class="fa-solid fa-video"></i>
-        </div>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6uB2xSVcuNsIFTIiPsap2z-nh00DVS6fKuLhaoPnV6g&s=10" alt="I PAD Discussion" class="card-poster">
         <div class="card-info">
           <h3>I PAD - GOOGLE MEET <span class="heart-mini">💖</span></h3>
-          <p>Daily Live Discussion • 9:00 PM (Live Batch)</p>
+          <p>Daily Live Discussion • 9:00 PM</p>
         </div>
 
-        <!-- BLUE GLOWING TIME + LIVE BADGE -->
         <div class="live-wrapper">
           <div class="blue-time-glow"><span>9 PM</span></div>
           <div class="live-stream-badge-container">
@@ -837,18 +1048,15 @@
         </div>
       </a>
 
-      <!-- 3. FOLDER: भाषा (HEADER ME BHI 11 AM LIVE GLOW EFFECT) -->
+      <!-- 3. FOLDER: भाषा -->
       <div class="expandable-container searchable-entry" id="bhashaContainer">
         <div class="link-card" onclick="toggleSubtopics('bhashaContainer')">
-          <div class="card-icon" style="color: #a855f7; border-color: rgba(168,85,247,0.4); background: rgba(168,85,247,0.15);">
-            <i class="fa-solid fa-language"></i>
-          </div>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRGQB-9emB2-jbzBzYEgXyUzsG5X06XZRRY4JgJ0FlWDA&s=10" alt="भाषा" class="card-poster">
           <div class="card-info">
             <h3>भाषा (HINDI / ENGLISH / SANSKRIT) <span class="heart-mini">💖</span></h3>
             <p>Amarnath Sir, Aman Vashishth Sir, Gyan Ganga</p>
           </div>
 
-          <!-- BAHAR FOLDER PAR BHI 11 AM LIVE BADGE -->
           <div class="live-wrapper">
             <div class="blue-time-glow"><span>11 AM</span></div>
             <div class="live-stream-badge-container">
@@ -868,14 +1076,18 @@
 
         <div id="bhashaList" class="subtopics-list">
           <a href="https://amarnath-satyam.vercel.app/" target="_blank" class="sub-item">
-            <span>1. HINDI — AMARNATH SIR</span>
+            <div class="sub-item-content">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkGFuKitaQfCjho6WA5VM3kkNOG2S4iBDRNLgyRAPnXw&s=10" alt="Amarnath Sir" class="sub-poster">
+              <span>1. HINDI — AMARNATH SIR</span>
+            </div>
             <i class="fa-solid fa-arrow-up-right-from-square"></i>
           </a>
 
-          <!-- ENGLISH AMAN VASHISHTH SIR (11 AM LIVE BATCH) -->
           <a href="https://sw.learntopper.in/content?courseId=6a9c1a6b4d63c7a6710471a3" target="_blank" class="sub-item">
-            <span>2. ENGLISH — AMAN VASHISHTH SIR</span>
-            
+            <div class="sub-item-content">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrO4HY740-qWAOnvjE6nOXV9RBh2Bxc5cG_0IoXH18bg&s" alt="Aman Vashishth Sir" class="sub-poster">
+              <span>2. ENGLISH — AMAN VASHISHTH SIR</span>
+            </div>
             <div class="live-wrapper mini">
               <div class="blue-time-glow"><span>11 AM</span></div>
               <div class="live-stream-badge-container">
@@ -886,12 +1098,15 @@
                 </div>
                 <span class="streaming-caption">STREAMING</span>
               </div>
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
             </div>
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
           </a>
 
           <a href="https://www.youtube.com/playlist?list=PLVGKTJAtRpeY" target="_blank" class="sub-item">
-            <span>3. SANSKRIT — GYAN GANGA</span>
+            <div class="sub-item-content">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNVExWkTIPRTYl0J9YS3L93pL0qOGnpDWOgTBV8sNFow&s=10" alt="Gyan Ganga" class="sub-poster">
+              <span>3. SANSKRIT — GYAN GANGA</span>
+            </div>
             <i class="fa-brands fa-youtube"></i>
           </a>
         </div>
@@ -899,9 +1114,7 @@
 
       <!-- 4. CDP SACHIN SIR -->
       <a href="https://t.me/c/3913088196/265/266" target="_blank" class="link-card searchable-entry">
-        <div class="card-icon" style="color: #22c55e; border-color: rgba(34,197,94,0.4); background: rgba(34,197,94,0.15);">
-          <i class="fa-solid fa-brain"></i>
-        </div>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ94jluufUVEnOO9mxaAa8f1DdlYvmnvdhSU4ghDcYrtw&s=10" alt="Sachin Sir CDP" class="card-poster">
         <div class="card-info">
           <h3>CDP - सचिन सर <span class="heart-mini">💖</span></h3>
           <p>Child Development & Pedagogy Batch</p>
@@ -911,18 +1124,15 @@
         </div>
       </a>
 
-      <!-- 5. FOLDER: GS (HEADER ME BHI 10 AM LIVE GLOW EFFECT) -->
+      <!-- 5. FOLDER: GS -->
       <div class="expandable-container searchable-entry" id="gsContainer">
         <div class="link-card" onclick="toggleSubtopics('gsContainer')">
-          <div class="card-icon" style="color: #eab308; border-color: rgba(234,179,8,0.4); background: rgba(234,179,8,0.15);">
-            <i class="fa-solid fa-flask-vial"></i>
-          </div>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3gZFs9kRiYDbZNFN3isrAKeK57X-XCBUz3EyVLb-Uve_yflAXMueUWPIW&s=10" alt="GS" class="card-poster">
           <div class="card-info">
             <h3>GS (SCIENCE / EVS & GEOGRAPHY) <span class="heart-mini">💖</span></h3>
             <p>Radhika Mam, Sachin Sir</p>
           </div>
 
-          <!-- BAHAR FOLDER PAR BHI 10 AM LIVE BADGE -->
           <div class="live-wrapper">
             <div class="blue-time-glow"><span>10 AM</span></div>
             <div class="live-stream-badge-container">
@@ -941,10 +1151,11 @@
         </div>
 
         <div id="gsList" class="subtopics-list">
-          <!-- SCIENCE RADHIKA MAM (10 AM LIVE BATCH) -->
           <a href="https://sw.learntopper.in/content?courseId=6a4e35315bac0ae4bab52444" target="_blank" class="sub-item">
-            <span>1. SCIENCE — RADHIKA MAM</span>
-
+            <div class="sub-item-content">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-1sUoSkC84546pwVotsgW9bpRT8bWsZBZi7w-j_JzGSUJY5KXHyWLP55r&s=10" alt="Radhika Mam" class="sub-poster">
+              <span>1. SCIENCE — RADHIKA MAM</span>
+            </div>
             <div class="live-wrapper mini">
               <div class="blue-time-glow"><span>10 AM</span></div>
               <div class="live-stream-badge-container">
@@ -955,12 +1166,15 @@
                 </div>
                 <span class="streaming-caption">STREAMING</span>
               </div>
-              <i class="fa-solid fa-arrow-up-right-from-square"></i>
             </div>
+            <i class="fa-solid fa-arrow-up-right-from-square"></i>
           </a>
 
           <a href="https://t.me/c/3913088196/388/389" target="_blank" class="sub-item">
-            <span>2. EVS & GEOGRAPHY — SACHIN SIR</span>
+            <div class="sub-item-content">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_pHph7Hh43VcrS8MzXsnoPTAhVX6G_B5dTV9sgIJuug&s" alt="Sachin Sir EVS" class="sub-poster">
+              <span>2. EVS & GEOGRAPHY — SACHIN SIR</span>
+            </div>
             <i class="fa-brands fa-telegram"></i>
           </a>
         </div>
@@ -968,9 +1182,7 @@
 
       <!-- 6. REASONING PIYUSH SIR -->
       <a href="https://vividxreasoningspl60batch.edgeone.app/" target="_blank" class="link-card searchable-entry">
-        <div class="card-icon" style="color: #ec4899; border-color: rgba(236,72,153,0.4); background: rgba(236,72,153,0.15);">
-          <i class="fa-solid fa-puzzle-piece"></i>
-        </div>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQm0r6WrPFjFRGj1YmaQ8ivcmfx6KYxxXS6a3uYrhRwLw&s=10" alt="Piyush Sir Reasoning" class="card-poster">
         <div class="card-info">
           <h3>REASONING - पीयूष सर <span class="heart-mini">💖</span></h3>
           <p>Reasoning Spl 60 Batch Portal</p>
@@ -983,9 +1195,7 @@
       <!-- 7. FOLDER: MATH -->
       <div class="expandable-container searchable-entry" id="mathContainer">
         <div class="link-card" onclick="toggleSubtopics('mathContainer')">
-          <div class="card-icon" style="color: #06b6d4; border-color: rgba(6,182,212,0.4); background: rgba(6,182,212,0.15);">
-            <i class="fa-solid fa-calculator"></i>
-          </div>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWMMX_qeIt6KVHls2N-d0YJChQzqfIXtAWRHmn1x353TdEzEuSJoUcmbg&s=10" alt="Math" class="card-poster">
           <div class="card-info">
             <h3>MATH SPECIAL BATCHES <span class="heart-mini">💖</span></h3>
             <p>Aditya Ranjan, Aditya Patel, Rakesh Yadav</p>
@@ -997,15 +1207,26 @@
 
         <div id="mathList" class="subtopics-list">
           <a href="https://t.me/+SgF4rEISn1tlMjU0" target="_blank" class="sub-item">
-            <span>1. MATH — ADITYA RANJAN SIR</span>
+            <div class="sub-item-content">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWMMX_qeIt6KVHls2N-d0YJChQzqfIXtAWRHmn1x353TdEzEuSJoUcmbg&s=10" alt="Aditya Ranjan Sir" class="sub-poster">
+              <span>1. MATH — ADITYA RANJAN SIR</span>
+            </div>
             <i class="fa-brands fa-telegram"></i>
           </a>
+
           <a href="https://t.me/+K7AMKGxl40YwZGVl" target="_blank" class="sub-item">
-            <span>2. MATH — ADITYA PATEL SIR</span>
+            <div class="sub-item-content">
+              <img src="https://bookscape-s3-bucket.s3.ap-south-1.amazonaws.com/authors-oct-23/Aditya-Patel.jpg" alt="Aditya Patel Sir" class="sub-poster">
+              <span>2. MATH — ADITYA PATEL SIR</span>
+            </div>
             <i class="fa-brands fa-telegram"></i>
           </a>
+
           <a href="https://t.me/+toslsScpw-1kMmU1" target="_blank" class="sub-item">
-            <span>3. MATH — RAKESH YADAV SIR</span>
+            <div class="sub-item-content">
+              <img src="https://pbs.twimg.com/profile_images/1957339223666671616/ANR5JBKd_400x400.jpg" alt="Rakesh Yadav Sir" class="sub-poster">
+              <span>3. MATH — RAKESH YADAV SIR</span>
+            </div>
             <i class="fa-brands fa-telegram"></i>
           </a>
         </div>
@@ -1014,9 +1235,7 @@
       <!-- 8. FOLDER: UPPET 2026 -->
       <div class="expandable-container searchable-entry" id="uppetContainer">
         <div class="link-card" onclick="toggleSubtopics('uppetContainer')">
-          <div class="card-icon" style="color: #f97316; border-color: rgba(249,115,22,0.4); background: rgba(249,115,22,0.15);">
-            <i class="fa-solid fa-graduation-cap"></i>
-          </div>
+          <img src="https://selectionwayserver-proxy2.hranker.com:8443/courses/banners/1786456855681-pet_banner.jpg" alt="UPPET 2026" class="card-poster">
           <div class="card-info">
             <h3>UPPET 2026 TARGET BATCHES <span class="heart-mini">💖</span></h3>
             <p>Selection Way Timetable & RWA Math+DI</p>
@@ -1027,13 +1246,12 @@
         </div>
 
         <div id="uppetList" class="subtopics-list">
-          
-          <!-- SELECTION WAY WITH TIMETABLE -->
           <div class="schedule-box">
             <div class="schedule-header">
-              <span style="font-weight: 600; font-size: 0.92rem; color: #fed7aa;">
-                <i class="fa-solid fa-calendar-days" style="color: #f97316; margin-right: 6px;"></i> 1. UPPET 2026 SELECTION WAY
-              </span>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <img src="https://selectionwayserver-proxy2.hranker.com:8443/courses/banners/1786456855681-pet_banner.jpg" alt="Selection Way" class="sub-poster">
+                <span style="font-weight: 600; font-size: 0.85rem; color: #fed7aa;">1. UPPET 2026 SELECTION WAY</span>
+              </div>
               <a href="https://sw.learntopper.in/content?courseId=6a7b12ffb50d9d2997e30125" target="_blank">
                 Open Course <i class="fa-solid fa-arrow-up-right-from-square"></i>
               </a>
@@ -1042,40 +1260,42 @@
             <div class="schedule-grid">
               <div class="schedule-entry-item">
                 <span class="schedule-subject">Hindi</span>
-                <span class="schedule-time">08:30 AM - 09:30 AM (Mon-Fri)</span>
+                <span class="schedule-time">08:30 AM - 09:30 AM</span>
               </div>
               <div class="schedule-entry-item">
-                <span class="schedule-subject">GS (Jeet Rana sir)</span>
-                <span class="schedule-time">09:30 AM - 10:30 AM (Mon-Fri)</span>
+                <span class="schedule-subject">GS (Jeet Rana)</span>
+                <span class="schedule-time">09:30 AM - 10:30 AM</span>
               </div>
               <div class="schedule-entry-item">
-                <span class="schedule-subject">Reasoning (Vikramjeet sir)</span>
-                <span class="schedule-time">11:00 AM - 12:00 PM (Mon-Fri)</span>
+                <span class="schedule-subject">Reasoning (Vikramjeet)</span>
+                <span class="schedule-time">11:00 AM - 12:00 PM</span>
               </div>
               <div class="schedule-entry-item">
                 <span class="schedule-subject">Science</span>
-                <span class="schedule-time">04:00 PM - 05:00 PM (Mon-Fri)</span>
+                <span class="schedule-time">04:00 PM - 05:00 PM</span>
               </div>
               <div class="schedule-entry-item">
                 <span class="schedule-subject">Maths</span>
-                <span class="schedule-time">07:00 PM - 08:00 PM (Mon-Fri)</span>
+                <span class="schedule-time">07:00 PM - 08:00 PM</span>
               </div>
               <div class="schedule-entry-item">
                 <span class="schedule-subject">GS (Shubham sir)</span>
-                <span class="schedule-time">08:15 PM - 09:15 PM (Mon-Fri)</span>
+                <span class="schedule-time">08:15 PM - 09:15 PM</span>
               </div>
             </div>
           </div>
 
-          <!-- RWA MATH+DI -->
           <a href="https://t.me/c/4383858554/303/304" target="_blank" class="sub-item" style="margin-top: 4px;">
-            <span>2. UPPET 2026 RWA — MATH + DI</span>
+            <div class="sub-item-content">
+              <img src="https://i.ytimg.com/vi/Qnm6Dj9Kz8A/hq720.jpg?sqp=-oaymwEnCNAFEJQDSFryq4qpAxkIARUAAIhCGAHYAQHiAQoIGBACGAY4AUAB&rs=AOn4CLBHh_tsvK1YBoxqkTkcnzuw3FUeYA" alt="RWA UPPET" class="sub-poster">
+              <span>2. UPPET 2026 RWA — MATH + DI</span>
+            </div>
             <i class="fa-brands fa-telegram"></i>
           </a>
         </div>
       </div>
 
-      <!-- 9. MY TOOLS -->
+      <!-- 9. MY TOOLS (ORIGINAL BLUE ICON) -->
       <div class="expandable-container searchable-entry" id="myToolsContainer">
         <div class="link-card" onclick="toggleSubtopics('myToolsContainer')">
           <div class="card-icon" style="color: #26a5e4; border-color: rgba(38,165,228,0.4); background: rgba(38,165,228,0.15);">
@@ -1092,7 +1312,11 @@
 
         <div id="myToolsList" class="subtopics-list">
           <a href="https://ydv-satyamm.github.io/STUDY_TRACKER/" target="_blank" class="sub-item">
-            <span>1. STUDY TRACKER</span> <i class="fa-solid fa-arrow-right"></i>
+            <div class="sub-item-content">
+              <i class="fa-solid fa-chart-line" style="font-size: 1.1rem; color: #38bdf8; width: 34px; text-align: center;"></i>
+              <span>1. STUDY TRACKER</span>
+            </div>
+            <i class="fa-solid fa-arrow-right"></i>
           </a>
         </div>
       </div>
@@ -1253,10 +1477,8 @@
       });
     }
 
-    /* Swipe Particles */
+    /* Swipe Particles Engine */
     const swipeIcons = ['fa-heart', 'fa-sparkles', 'fa-star', 'fa-wand-magic-sparkles'];
-    let lastSwipeX = 0;
-    let lastSwipeY = 0;
     let lastSwipeTime = 0;
 
     function spawnSwipeTrail(x, y, vx = 0) {
@@ -1281,11 +1503,12 @@
       setTimeout(() => spark.remove(), 1200);
     }
 
+    let lastSwipeX = 0;
+    let lastSwipeY = 0;
+
     window.addEventListener('touchstart', (e) => {
-      const touch = e.touches[0];
-      lastSwipeX = touch.clientX;
-      lastSwipeY = touch.clientY;
-      spawnSwipeTrail(touch.clientX, touch.clientY);
+      lastSwipeX = e.touches[0].clientX;
+      lastSwipeY = e.touches[0].clientY;
     }, { passive: true });
 
     window.addEventListener('touchmove', (e) => {
@@ -1322,40 +1545,56 @@
         card.style.transform = `perspective(600px) rotateX(${-y * 0.04}deg) rotateY(${x * 0.04}deg) translateY(-3px) scale(1.012)`;
       });
 
-// Service Worker Register
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js');
-}
-
-// Install prompt handle karna
-let deferredPrompt;
-const installBanner = document.getElementById('pwaInstallBanner');
-const installBtn = document.getElementById('pwaInstallBtn');
-
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  installBanner.style.display = 'flex'; // Banner show karega
-});
-
-installBtn.addEventListener('click', async () => {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    const { outcome } = await deferredPrompt.userChoice;
-    if (outcome === 'accepted') {
-      installBanner.style.display = 'none';
-    }
-    deferredPrompt = null;
-  }
-});
-
-window.addEventListener('appinstalled', () => {
-  installBanner.style.display = 'none';
-});
-
       card.addEventListener('mouseleave', () => {
         card.style.transform = '';
       });
+    });
+
+    // Inline Service Worker for PWA
+    if ('serviceWorker' in navigator) {
+      const swCode = `
+        self.addEventListener('install', (e) => self.skipWaiting());
+        self.addEventListener('activate', (e) => self.clients.claim());
+        self.addEventListener('fetch', (e) => {
+          e.respondWith(fetch(e.request).catch(() => new Response('Offline')));
+        });
+      `;
+      const blob = new Blob([swCode], { type: 'text/javascript' });
+      navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(() => {});
+    }
+
+    // PWA Install Prompt
+    let deferredPrompt = null;
+    const installBanner = document.getElementById('pwaInstallBanner');
+    const installBtn = document.getElementById('pwaInstallBtn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      installBanner.style.display = 'flex';
+    });
+
+    installBtn.addEventListener('click', async () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          installBanner.style.display = 'none';
+        }
+        deferredPrompt = null;
+      } else {
+        alert('Browser menu (⋮) me jaakar "Add to Home screen" par click karein.');
+        installBanner.style.display = 'none';
+      }
+    });
+
+    function dismissPwaBanner() {
+      installBanner.style.display = 'none';
+    }
+
+    window.addEventListener('appinstalled', () => {
+      installBanner.style.display = 'none';
+      deferredPrompt = null;
     });
   </script>
 </body>
