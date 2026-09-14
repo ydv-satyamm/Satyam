@@ -9,16 +9,20 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Study Portal">
-  <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3429/3429154.png">
+  
+  <!-- YOUR CUSTOM APP ICON -->
+  <link rel="apple-touch-icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXXcp7oF4Km9FFnc_fgj8RFrnvRui7M0TBRhwqmVtXiQ&s=10">
+  <link rel="icon" type="image/jpeg" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXXcp7oF4Km9FFnc_fgj8RFrnvRui7M0TBRhwqmVtXiQ&s=10">
 
-  <link rel="manifest" href='data:application/manifest+json,{"name":"Study Portal","short_name":"StudyPortal","start_url":"./","display":"standalone","background_color":"#18091f","theme_color":"#18091f","icons":[{"src":"https://cdn-icons-png.flaticon.com/512/3429/3429154.png","sizes":"192x192","type":"image/png"},{"src":"https://cdn-icons-png.flaticon.com/512/3429/3429154.png","sizes":"512x512","type":"image/png"}]}'>
+  <!-- EMBEDDED PWA MANIFEST WITH YOUR CUSTOM ICON -->
+  <link rel="manifest" href='data:application/manifest+json,{"name":"Study Portal","short_name":"StudyPortal","start_url":"./","display":"standalone","background_color":"#18091f","theme_color":"#18091f","icons":[{"src":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXXcp7oF4Km9FFnc_fgj8RFrnvRui7M0TBRhwqmVtXiQ&s=10","sizes":"192x192","type":"image/jpeg"},{"src":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXXcp7oF4Km9FFnc_fgj8RFrnvRui7M0TBRhwqmVtXiQ&s=10","sizes":"512x512","type":"image/jpeg"}]}'>
 
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <style>
     /* =========================================================
-       DYNAMIC THEME CSS VARIABLES & ATMOSPHERES (RESTORED AS-IS)
+       DYNAMIC THEME CSS VARIABLES & ATMOSPHERES
        ========================================================= */
     :root {
       --bg-gradient: linear-gradient(135deg, #2b092b 0%, #4a0e2e 50%, #1f041b 100%);
@@ -575,9 +579,7 @@
       font-size: 1.15rem;
     }
 
-    /* =========================================================
-       LIVE STREAMING & BLUE GLOWING TIMING ENGINE
-       ========================================================= */
+    /* Live Badge & Time Glow */
     .live-wrapper {
       display: inline-flex;
       align-items: center;
@@ -715,7 +717,7 @@
       100% { opacity: 1; transform: scale(1.1); }
     }
 
-    /* PWA Banner */
+    /* PWA Banner with Custom Icon Preview */
     .pwa-install-banner {
       display: none;
       position: fixed;
@@ -734,6 +736,12 @@
       align-items: center;
       justify-content: space-between;
       gap: 10px;
+      animation: popBanner 0.4s cubic-bezier(0.2, 0.8, 0.25, 1);
+    }
+
+    @keyframes popBanner {
+      0% { opacity: 0; transform: translate(-50%, -20px); }
+      100% { opacity: 1; transform: translate(-50%, 0); }
     }
 
     .pwa-info {
@@ -743,11 +751,14 @@
       min-width: 0;
     }
 
-    .pwa-info i {
-      font-size: 1.5rem;
-      color: #00f0ff;
+    .pwa-app-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      object-fit: cover;
       flex-shrink: 0;
-      filter: drop-shadow(0 0 8px #00f0ff);
+      border: 1.5px solid #00f0ff;
+      box-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
     }
 
     .pwa-info h4 {
@@ -789,6 +800,11 @@
       align-items: center;
       gap: 4px;
       box-shadow: 0 0 10px rgba(0, 240, 255, 0.6);
+      transition: transform 0.2s ease;
+    }
+
+    .pwa-install-btn:hover {
+      transform: scale(1.05);
     }
 
     .pwa-close-btn {
@@ -958,12 +974,13 @@
 </head>
 <body class="theme-night">
 
+  <!-- PWA INSTALL BANNER POPUP WITH YOUR SPECIFIED ICON -->
   <div class="pwa-install-banner" id="pwaInstallBanner">
     <div class="pwa-info">
-      <i class="fa-solid fa-mobile-screen-button"></i>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSXXcp7oF4Km9FFnc_fgj8RFrnvRui7M0TBRhwqmVtXiQ&s=10" alt="App Icon" class="pwa-app-icon">
       <div>
         <h4>Install Study Portal</h4>
-        <p>Home Screen App ki tarah save karein</p>
+        <p>Android ya PC par Home App ki tarah save karein</p>
       </div>
     </div>
     <div class="pwa-actions">
@@ -1295,7 +1312,7 @@
         </div>
       </a>
 
-      <!-- 9. MY TOOLS (ORIGINAL BLUE ICON) -->
+      <!-- 9. MY TOOLS -->
       <div class="expandable-container searchable-entry" id="myToolsContainer">
         <div class="link-card" onclick="toggleSubtopics('myToolsContainer')">
           <div class="card-icon" style="color: #26a5e4; border-color: rgba(38,165,228,0.4); background: rgba(38,165,228,0.15);">
@@ -1551,15 +1568,48 @@
       });
     });
 
-    // PWA Install Prompt
+    // =========================================================
+    // INLINE SERVICE WORKER (PWA REQUIREMENT)
+    // =========================================================
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        const swScript = `
+          self.addEventListener('install', (e) => self.skipWaiting());
+          self.addEventListener('activate', (e) => self.clients.claim());
+          self.addEventListener('fetch', (e) => {
+            e.respondWith(fetch(e.request).catch(() => new Response('Offline')));
+          });
+        `;
+        const blob = new Blob([swScript], { type: 'application/javascript' });
+        navigator.serviceWorker.register(URL.createObjectURL(blob)).catch(err => {
+          console.warn('PWA SW Register Notice:', err);
+        });
+      });
+    }
+
+    // =========================================================
+    // PWA INSTALL BANNER ENGINE
+    // =========================================================
     let deferredPrompt = null;
     const installBanner = document.getElementById('pwaInstallBanner');
     const installBtn = document.getElementById('pwaInstallBtn');
 
+    // Show custom banner when browser triggers install eligibility
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
       if (installBanner) installBanner.style.display = 'flex';
+    });
+
+    // Fallback: Agar browser me prompt event trigger na ho raha ho toh 2 second baad automatically banner dikha do
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        // Agar pehle se standalone app me nahi khula hai to banner show karein
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+        if (!isStandalone && installBanner) {
+          installBanner.style.display = 'flex';
+        }
+      }, 1500);
     });
 
     if (installBtn) {
@@ -1567,12 +1617,13 @@
         if (deferredPrompt) {
           deferredPrompt.prompt();
           const { outcome } = await deferredPrompt.userChoice;
-          if (outcome === 'accepted') {
-            if (installBanner) installBanner.style.display = 'none';
+          if (outcome === 'accepted' && installBanner) {
+            installBanner.style.display = 'none';
           }
           deferredPrompt = null;
         } else {
-          alert('Browser menu (⋮) me jaakar "Add to Home screen" par click karein.');
+          // Manual Fallback Guide
+          alert('1. Browser ke right top par 3 dots (⋮) ya Share button par click karein.\n2. "Add to Home Screen" ya "Install App" select karein.');
           if (installBanner) installBanner.style.display = 'none';
         }
       });
